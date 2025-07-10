@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.List;
 import static java.lang.Thread.sleep;
 /**
@@ -61,6 +62,10 @@ class MultiModalDialogUsage {
                                         .userId("1234")
                                         .device(MultiModalRequestParam.ClientInfo.Device.builder().uuid("device_1234").build())
                                         .build())
+                        .bizParams(MultiModalRequestParam.BizParams
+                                .builder()
+                                .passThroughParams(getPassThroughParams())
+                                .build())
                         .model(modelName)
                         .apiKey("your-api-key")
                         .build();
@@ -94,7 +99,11 @@ class MultiModalDialogUsage {
         System.out.println("############ End Test VQA ############");
     }
 
-
+    private HashMap<String, Object> getPassThroughParams() {
+        HashMap<String, Object> passThroughParams = new HashMap<>();
+        passThroughParams.put("param1", "value1");
+        return passThroughParams;
+    }
 
     public static void main(String[] args) {
         MultiModalDialogUsage multiModalDialogUsage = new MultiModalDialogUsage();
